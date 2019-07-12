@@ -19,5 +19,14 @@ function getTodos (user) {
     })
 }
 
-const todosService = { getTodos };
+function deleteTodo (user, id) {
+    return axios.delete(`${url}/todos/${id}`, {
+        headers: {
+            ...options.headers,
+            'Authorization': `Bearer ${user.access_token}`
+        }
+    })
+}
+
+const todosService = { getTodos, deleteTodo };
 export default todosService;
