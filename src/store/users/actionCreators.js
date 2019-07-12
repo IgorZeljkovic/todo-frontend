@@ -25,7 +25,7 @@ export function login (emailPassword) {
 export function logout (user) {
     return async function (dispatch) {
         const { data } = await userService.logout(user);
-        console.log(data);
+        console.log(data.message);
         data && dispatch(setUser(null));
     }
 }

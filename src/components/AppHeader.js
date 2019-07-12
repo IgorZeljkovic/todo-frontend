@@ -5,7 +5,6 @@ import { userSelector, logout } from '../store/users';
 import { Navbar, Button } from 'react-bootstrap';
 
 function AppHeader ({ user, logout }) {
-    console.log(user)
     return (
         <Navbar>
             <Link to='/' className="navbar-brand">

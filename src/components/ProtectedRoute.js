@@ -1,15 +1,15 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-export default function NonAuthenticatedRoute ({ component: Component, user, ...rest }) {
+export default function ProtectedRoute ({ component: Component, user, ...rest }) {
     return (
         <Route
             { ...rest }
-            render = { props => {
+            render = {props => {
                 return user ? (
-                    <Redirect to="/todos" />
-                ) : (
                     <Component { ...props } />
+                ) : (
+                    <Redirect to="/login" />
                 )
             }}
         />
