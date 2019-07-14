@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { ListGroup, Container, Button } from 'react-bootstrap';
+import { ListGroup } from 'react-bootstrap';
+import { FaTrashAlt } from 'react-icons/fa';
+import { connect } from 'react-redux';
 import { deleteTodo } from '../store/todos/actionCreators';
 import { userSelector } from '../store/users';
-import { connect } from 'react-redux';
 
 class TodoItem extends Component {
-    constructor (props) {
-        super(props);
-    }
-
     render () {
         const { todo, user } = this.props;
 
@@ -19,12 +15,10 @@ class TodoItem extends Component {
                 <ListGroup.Item>
                     { todo.title }
                     <span style={{ float: "right" }}>
-                        <Button
-                            variant="outline-danger"
+                        <FaTrashAlt
+                            className="delete-todo-btn"
                             onClick={ () => this.props.delete(user, todo.id) }
-                        >
-                            x
-                        </Button>
+                        />
                     </span>
                 </ListGroup.Item>
             ) : (

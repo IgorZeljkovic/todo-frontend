@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = "http://localhost:8000/api/auth";
+const url = "http://localhost:8000/api/auth/todos";
 
 const options = {
     headers: {
@@ -11,7 +11,7 @@ const options = {
 }
 
 function getTodos (user) {
-    return axios.get(`${url}/todos`, {
+    return axios.get(url, {
         headers: {
             ...options.headers,
             'Authorization': `Bearer ${user.access_token}`
@@ -20,7 +20,7 @@ function getTodos (user) {
 }
 
 function deleteTodo (user, id) {
-    return axios.delete(`${url}/todos/${id}`, {
+    return axios.delete(`${url}/${id}`, {
         headers: {
             ...options.headers,
             'Authorization': `Bearer ${user.access_token}`
@@ -28,5 +28,14 @@ function deleteTodo (user, id) {
     })
 }
 
-const todosService = { getTodos, deleteTodo };
+function addTodo (user, todo) {
+    return axios.post(url, todo, {
+        headers: {
+            ...options.headers,
+            'Authorization': `Bearer ${user.access_token}`
+        }
+    })
+}
+
+const todosService = { getTodos, deleteTodo, addTodo };
 export default todosService;

@@ -4,7 +4,8 @@ import { todosSelector } from '../store/todos';
 import { userSelector } from '../store/users';
 import TodoItem from './TodoItem';
 import { ListGroup, Container } from 'react-bootstrap';
-import { getTodos } from '../store/todos/actionCreators'
+import { getTodos } from '../store/todos/actionCreators';
+import { Link } from 'react-router-dom';
 
 class TodoList extends Component {
     constructor (props) {
@@ -17,6 +18,7 @@ class TodoList extends Component {
 
         return (
             <Container className="todo-container">
+                <Link to="/addTodo" className="btn btn-primary btn-lg" id="add-todo-btn">+</Link>
                 <ListGroup>
                     {
                         todos.map(todo => (
