@@ -1,5 +1,5 @@
-import userService from '../../services/userService';
 import { SET_USER } from './actionTypes';
+import { authService } from '../../services/AuthService';
 
 function setUserState (user) {
     return {
@@ -15,24 +15,25 @@ export function setUser (user) {
     };
 }
 
-export function login (emailPassword) {
+export function login (credentials) {
     return async function (dispatch) {
-        const { data : user } = await userService.login(emailPassword);
+        const user = await authService.login(credentials);
+        
         user && dispatch(setUser(user));
     }
 }
 
-export function logout (user) {
+export function logout () {
     return async function (dispatch) {
-        const { data } = await userService.logout(user);
-        console.log(data);
-        data && dispatch(setUser(null));
+        const loggedOut = await authService.logout();
+
+        loggedOut && dispatch(setUser(null));
     }
 }
 
 export function register (user) {
     return async function (dispatch) {
-        const { data : token } = await userService.register(user);
+        const token = await authService.register(user);
         
         token && dispatch(setUser(token));
     }
