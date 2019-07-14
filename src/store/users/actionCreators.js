@@ -11,6 +11,7 @@ function setUserState (user) {
 export function setUser (user) {
     return function (dispatch) {
         localStorage.setItem('user', JSON.stringify(user));
+        
         dispatch(setUserState(user));
     };
 }
@@ -18,6 +19,7 @@ export function setUser (user) {
 export function login (emailPassword) {
     return async function (dispatch) {
         const { data : user } = await userService.login(emailPassword);
+
         user && dispatch(setUser(user));
     }
 }
@@ -25,7 +27,7 @@ export function login (emailPassword) {
 export function logout (user) {
     return async function (dispatch) {
         const { data } = await userService.logout(user);
-        console.log(data.message);
+
         data && dispatch(setUser(null));
     }
 }

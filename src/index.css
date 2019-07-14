@@ -28,10 +28,19 @@ code {
   border-radius: 100%;
 }
 
-.delete-todo-btn {
+.todo-item-btn {
   color: rgb(156, 156, 156);
+  margin-left: 1rem;
 }
 
-.delete-todo-btn:hover {
+.todo-item-btn:hover {
+  color: rgb(24, 22, 29);
+}
+
+.todo-item-delete:hover {
   color: red;
+}
+
+.todo-item-done:hover {
+  color: green;
 }

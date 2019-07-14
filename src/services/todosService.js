@@ -37,5 +37,15 @@ function addTodo (user, todo) {
     })
 }
 
-const todosService = { getTodos, deleteTodo, addTodo };
+function editTodo (todo) {
+    const user = JSON.parse(localStorage.getItem('user'))
+    
+    return axios.put(`${url}/${todo.id}`, todo, {
+        headers: {
+            'Authorization': `Bearer ${user.access_token}`
+        }
+    })
+}
+
+const todosService = { getTodos, deleteTodo, addTodo, editTodo };
 export default todosService;
