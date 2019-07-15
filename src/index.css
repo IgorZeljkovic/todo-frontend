@@ -16,3 +16,7 @@ code {
   width: 25rem;
   margin-top: 3rem;
 }
+
+.todo-container {
+  width: 35rem;
+}
