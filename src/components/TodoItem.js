@@ -9,32 +9,17 @@ class TodoItem extends Component {
         const { todo } = this.props;
 
         return (
-            !todo.is_completed
-            ? (
-                <ListGroup.Item>
-                    { todo.title }
-                    <span style={{ float: "right" }}>
-                        <Button
-                            variant="outline-danger"
-                            onClick={ () => this.props.delete(todo.id) }
-                        >
-                            x
-                        </Button>
-                    </span>
-                </ListGroup.Item>
-            ) : (
-                <ListGroup.Item variant="success">
-                    { todo.title }
-                    <span style={{ float: "right" }}>
-                        <Button
-                            variant="outline-danger"
-                            onClick={ () => this.props.delete(todo.id) }
-                        >
-                            x
-                        </Button>
-                    </span>
-                </ListGroup.Item>
-            )
+            <ListGroup.Item variant={ todo.is_completed ? "success" : "light" }>
+                { todo.title }
+                <span style={{ float: "right" }}>
+                    <Button
+                        variant="outline-danger"
+                        onClick={ () => this.props.delete(todo.id) }
+                    >
+                        x
+                    </Button>
+                </span>
+            </ListGroup.Item>
         )
     }
 }
