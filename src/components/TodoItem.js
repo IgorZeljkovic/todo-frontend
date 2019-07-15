@@ -2,16 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { ListGroup, Container, Button } from 'react-bootstrap';
 import { deleteTodo } from '../store/todos/actionCreators';
-import { userSelector } from '../store/users';
 import { connect } from 'react-redux';
 
 class TodoItem extends Component {
-    constructor (props) {
-        super(props);
-    }
-
     render () {
-        const { todo, user } = this.props;
+        const { todo } = this.props;
 
         return (
             !todo.is_completed
@@ -21,7 +16,7 @@ class TodoItem extends Component {
                     <span style={{ float: "right" }}>
                         <Button
                             variant="outline-danger"
-                            onClick={ () => this.props.delete(user, todo.id) }
+                            onClick={ () => this.props.delete(todo.id) }
                         >
                             x
                         </Button>
@@ -31,7 +26,12 @@ class TodoItem extends Component {
                 <ListGroup.Item variant="success">
                     { todo.title }
                     <span style={{ float: "right" }}>
-    
+                        <Button
+                            variant="outline-danger"
+                            onClick={ () => this.props.delete(todo.id) }
+                        >
+                            x
+                        </Button>
                     </span>
                 </ListGroup.Item>
             )
@@ -39,16 +39,10 @@ class TodoItem extends Component {
     }
 }
 
-function matchStateToProps (state) {
-    return {
-        user: userSelector(state)
-    }
-}
-
 function matchDispatchToProps (dispatch) {
     return {
-        delete: (user, id) => dispatch(deleteTodo(user, id))
+        delete: (id) => dispatch(deleteTodo(id))
     }
 }
 
-export default connect(matchStateToProps, matchDispatchToProps)(TodoItem);
+export default connect(null, matchDispatchToProps)(TodoItem);

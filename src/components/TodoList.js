@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { todosSelector } from '../store/todos';
-import { userSelector } from '../store/users';
 import TodoItem from './TodoItem';
 import { ListGroup, Container } from 'react-bootstrap';
 import { getTodos } from '../store/todos/actionCreators'
 
 class TodoList extends Component {
-    constructor (props) {
-        super(props);
-        props.getTodos(props.user);
+    componentDidMount () {
+        this.props.getTodos();
     }
 
     render () {
@@ -31,14 +29,13 @@ class TodoList extends Component {
 
 function mapStateToProps (state) {
     return {
-        todos: todosSelector(state),
-        user: userSelector(state)
+        todos: todosSelector(state)
     }
 }
 
 function mapDispatchToProps (dispatch) {
     return {
-        getTodos: (user) => dispatch(getTodos(user))
+        getTodos: () => dispatch(getTodos())
     }
 }
 
