@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { addTodo } from '../store/todos/actionCreators';
-import { userSelector } from '../store/users/selectors';
 
 class AddTodoForm extends Component {
     constructor (props) {
@@ -17,7 +16,7 @@ class AddTodoForm extends Component {
     handleSubmit = event => {
         event.preventDefault();
         
-        this.props.addTodo( this.props.user, this.state );
+        this.props.addTodo(this.state);
         this.props.history.push('/todos');
         
     }
@@ -66,16 +65,10 @@ class AddTodoForm extends Component {
     }
 }
 
-function mapStateToProps (state) {
-    return {
-        user: userSelector(state)
-    }
-}
-
 function mapDispatchToProps (dispatch) {
     return {
-        addTodo: (user, newTodo) => dispatch(addTodo(user, newTodo))
+        addTodo: (newTodo) => dispatch(addTodo(newTodo))
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddTodoForm);
+export default connect(null, mapDispatchToProps)(AddTodoForm);
