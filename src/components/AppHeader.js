@@ -12,20 +12,21 @@ function AppHeader ({ user, logout }) {
             </Link>
             {
                 user
-                ?
-                <Navbar.Collapse className="justify-content-end">
-                    <Button
-                        onClick={ () => logout(user) }
-                        variant="danger"
-                    >
-                        Logout
-                    </Button>
-                </Navbar.Collapse>
-                :
-                <Navbar.Collapse className="justify-content-end">
-                    <Link to="/login" className="nav-item nav-link">Login</Link>
-                    <Link to="/register" className="nav-item nav-link">Register</Link>
-                </Navbar.Collapse>
+                ? (
+                    <Navbar.Collapse className="justify-content-end">
+                        <Button
+                            onClick={ logout }
+                            variant="danger"
+                        >
+                            Logout
+                        </Button>
+                    </Navbar.Collapse>
+                ) : (
+                    <Navbar.Collapse className="justify-content-end">
+                        <Link to="/login" className="nav-item nav-link">Login</Link>
+                        <Link to="/register" className="nav-item nav-link">Register</Link>
+                    </Navbar.Collapse>
+                )
             }
         </Navbar>
     )
@@ -39,7 +40,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
     return {
-        logout: user => dispatch(logout(user))
+        logout: () => dispatch(logout())
     }
 }
 

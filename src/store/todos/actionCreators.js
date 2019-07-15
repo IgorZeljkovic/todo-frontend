@@ -22,23 +22,38 @@ function addTodoState (todo) {
     }
 }
 
-export function getTodos (user) {
+export function getTodos () {
     return async function (dispatch) {
-        const { data : todos } = await todosService.getTodos(user);
-        dispatch(setTodosState(todos));
+        try {
+            const { data : todos } = await todosService.getTodos();
+        
+            dispatch(setTodosState(todos));
+        } catch {
+            
+        }
     }
 }
 
-export function deleteTodo (user, id) {
+export function deleteTodo (id) {
     return async function (dispatch) {
-        const { data : deleted } = await todosService.deleteTodo(user, id);
-        deleted && dispatch(deleteTodoState(id));
+        try {
+            const { data : isDeleted } = await todosService.deleteTodo(id);
+
+            isDeleted && dispatch(deleteTodoState(id));
+        } catch (e) {
+
+        }
     }
 }
 
-export function addTodo (user, newTodo) {
+export function addTodo (newTodo) {
     return async function (dispatch) {
-        const { data : todo } = await todosService.addTodo(user, newTodo);
-        todo && dispatch(addTodoState(todo));
+        try {
+            const { data : todo } = await todosService.addTodo(newTodo);
+
+            todo && dispatch(addTodoState(todo));
+        } catch (e) {
+
+        }
     }
 }
