@@ -8,9 +8,14 @@ function setTodosState (todos) {
     }
 }
 
-export function getTodos (user) {
+export function getTodos () {
     return async function (dispatch) {
-        const { data : todos } = await todoService.getTodos(user);
-        dispatch(setTodosState(todos));
+        try {
+            const { data : todos } = await todoService.getTodos();
+        
+            dispatch(setTodosState(todos));
+        } catch {
+            
+        }
     }
 }
