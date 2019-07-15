@@ -1,6 +1,5 @@
 import { SET_USER } from './actionTypes';
 import { authService } from '../../services/AuthService';
-import axios from 'axios'
 
 function setUserState (user) {
     return {
@@ -12,7 +11,7 @@ function setUserState (user) {
 export function setUser (user) {
     return function (dispatch) {
         localStorage.setItem('user', JSON.stringify(user));
-        axios.defaults.headers.common["Authorization"] = user ? `Bearer ${user.access_token}` : null;
+        authService.setAuthHeader();
 
         dispatch(setUserState(user));
     };

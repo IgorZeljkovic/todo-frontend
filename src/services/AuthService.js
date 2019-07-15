@@ -2,10 +2,8 @@ import axios from 'axios';
 
 class AuthService {
     constructor () {
-        const user = JSON.parse(localStorage.getItem('user'));
-
         axios.defaults.baseURL = "http://localhost:8000/api/auth";
-        axios.defaults.headers.common['Authorization'] = user ? `Bearer ${user.access_token}` : null;
+        this.setAuthHeader();
     }
 
     async login (credentials) {
@@ -36,6 +34,11 @@ class AuthService {
         } catch (e) {
 
         }
+    }
+
+    setAuthHeader () {
+        const user = JSON.parse(localStorage.getItem('user'));
+        axios.defaults.headers.common['Authorization'] = user ? `Bearer ${user.access_token}` : null;
     }
 
 }
