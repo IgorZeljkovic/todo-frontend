@@ -1,5 +1,6 @@
 import { SET_USER } from './actionTypes';
 import { authService } from '../../services/AuthService';
+import axios from 'axios'
 
 function setUserState (user) {
     return {
@@ -11,30 +12,44 @@ function setUserState (user) {
 export function setUser (user) {
     return function (dispatch) {
         localStorage.setItem('user', JSON.stringify(user));
+        axios.defaults.headers.common["Authorization"] = user ? `Bearer ${user.access_token}` : null;
+
         dispatch(setUserState(user));
     };
 }
 
 export function login (credentials) {
     return async function (dispatch) {
-        const user = await authService.login(credentials);
-        
-        user && dispatch(setUser(user));
+        try {
+            const user = await authService.login(credentials);
+
+            user && dispatch(setUser(user));
+        } catch (e) {
+
+        }
     }
 }
 
 export function logout () {
     return async function (dispatch) {
-        const loggedOut = await authService.logout();
+        try {
+            const loggedOut = await authService.logout();
 
-        loggedOut && dispatch(setUser(null));
+            loggedOut && dispatch(setUser(null));
+        } catch (e) {
+
+        }
     }
 }
 
 export function register (user) {
     return async function (dispatch) {
-        const token = await authService.register(user);
-        
-        token && dispatch(setUser(token));
+        try {
+            const token = await authService.register(user);
+
+            token && dispatch(setUser(token));
+        } catch (e) {
+            
+        }
     }
 }

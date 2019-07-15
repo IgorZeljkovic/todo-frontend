@@ -1,27 +1,41 @@
 import axios from 'axios';
-import { authHeader } from '../helpers/authHeader';
 
 class AuthService {
     constructor () {
-        this.url = "http://localhost:8000/api/auth";
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        axios.defaults.baseURL = "http://localhost:8000/api/auth";
+        axios.defaults.headers.common['Authorization'] = user ? `Bearer ${user.access_token}` : null;
     }
 
     async login (credentials) {
-        const { data } = await axios.post(`${this.url}/login`, credentials);
+        try {
+            const { data } = await axios.post(`/login`, credentials);
 
-        return data;
+            return data;
+        } catch (e) {
+
+        }
     }
 
     async logout () {
-        const { data } = await axios.post(`${this.url}/logout`, '', authHeader());
-        
-        return data;
+        try {
+            const { data } = await axios.post(`/logout`, '');
+
+            return data;
+        } catch (e) {
+            
+        }        
     }
 
     async register (user) {
-        const { data } = await axios.post(`${this.url}/register`, user);
+        try {
+            const { data } = await axios.post(`/register`, user);
 
-        return data;
+            return data;
+        } catch (e) {
+
+        }
     }
 
 }
