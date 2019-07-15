@@ -4,9 +4,10 @@ import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
 import AppHeader from './components/AppHeader';
 import NonAuthenticatedRoute from './components/NonAuthenticatedRoute';
 import ProtectedRoute from './components/ProtectedRoute';
-import TodoList from './components/TodoList'
+import TodoList from './components/TodoList';
 import RegisterForm from './components/RegisterForm';
 import LoginForm from './components/LoginForm';
+import AddTodoForm from './components/AddTodoForm';
 
 
 class App extends Component {
@@ -30,6 +31,11 @@ class App extends Component {
               path="/todos"
               user={ this.props.user }
               component={ TodoList }
+            />
+            <ProtectedRoute
+              path="/addTodo"
+              user={ this.props.user }
+              component={ AddTodoForm }
             />
             <Redirect from="/" to="todos" />
           </Switch>

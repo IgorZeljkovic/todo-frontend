@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { ListGroup, Container, Button } from 'react-bootstrap';
-import { deleteTodo } from '../store/todos/actionCreators';
+import { ListGroup } from 'react-bootstrap';
+import { FaTrashAlt } from 'react-icons/fa';
 import { connect } from 'react-redux';
+import { deleteTodo } from '../store/todos/actionCreators';
 
 class TodoItem extends Component {
     render () {
@@ -12,12 +12,10 @@ class TodoItem extends Component {
             <ListGroup.Item variant={ todo.is_completed ? "success" : "light" }>
                 { todo.title }
                 <span style={{ float: "right" }}>
-                    <Button
-                        variant="outline-danger"
+                    <FaTrashAlt
+                        className="delete-todo-btn"
                         onClick={ () => this.props.delete(todo.id) }
-                    >
-                        x
-                    </Button>
+                    />
                 </span>
             </ListGroup.Item>
         )

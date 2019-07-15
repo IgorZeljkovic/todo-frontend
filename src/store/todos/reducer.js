@@ -1,4 +1,4 @@
-import { SET_TODOS, DELETE_TODO } from './actionTypes';
+import { SET_TODOS, DELETE_TODO, ADD_TODO } from './actionTypes';
 
 const initialState = [];
 
@@ -8,6 +8,11 @@ export default function todoReducer (state = initialState, action) {
             return action.payload;
         case DELETE_TODO:
             return state.filter(todo => todo.id !== action.payload );
+        case ADD_TODO:
+            return [
+                ...state,
+                action.payload
+            ]
         default:
             return state;
     }

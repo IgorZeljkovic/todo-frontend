@@ -16,5 +16,13 @@ async function deleteTodo (id) {
     }
 }
 
-const todosService = { getTodos, deleteTodo };
+async function addTodo (todo) {
+    try {
+        return await axios.post('/todos', todo)
+    } catch (e) {
+
+    }
+}
+
+const todosService = { getTodos, deleteTodo, addTodo };
 export default todosService;
