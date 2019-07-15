@@ -8,6 +8,7 @@ import TodoList from './components/TodoList';
 import RegisterForm from './components/RegisterForm';
 import LoginForm from './components/LoginForm';
 import AddTodoForm from './components/AddTodoForm';
+import EditTodoForm from './components/EditTodoForm';
 
 
 class App extends Component {
@@ -36,6 +37,11 @@ class App extends Component {
               path="/addTodo"
               user={ this.props.user }
               component={ AddTodoForm }
+            />
+            <ProtectedRoute
+              path="/editTodo/:id"
+              user={ this.props.user }
+              component={ EditTodoForm }
             />
             <Redirect from="/" to="todos" />
           </Switch>

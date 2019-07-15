@@ -1,5 +1,5 @@
 import todosService from '../../services/todosService';
-import { SET_TODOS, DELETE_TODO, ADD_TODO } from './actionTypes';
+import { SET_TODOS, DELETE_TODO, ADD_TODO, EDIT_TODO } from './actionTypes';
 
 function setTodosState (todos) {
     return {
@@ -18,6 +18,13 @@ function deleteTodoState (id) {
 function addTodoState (todo) {
     return {
         type: ADD_TODO,
+        payload: todo
+    }
+}
+
+function editTodoState (todo) {
+    return {
+        type: EDIT_TODO,
         payload: todo
     }
 }
@@ -52,6 +59,18 @@ export function addTodo (newTodo) {
             const { data : todo } = await todosService.addTodo(newTodo);
 
             todo && dispatch(addTodoState(todo));
+        } catch (e) {
+
+        }
+    }
+}
+
+export function editTodo (editedTodo) {
+    return async function (dispatch) {
+        try {
+            const { data : todo } = await todosService.editTodo(editedTodo);
+
+            todo && dispatch(editTodoState(todo));
         } catch (e) {
 
         }

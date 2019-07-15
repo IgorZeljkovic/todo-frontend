@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { addTodo } from '../store/todos/actionCreators';
+import { editTodo } from '../store/todos/actionCreators';
+import { todoByIdSelector } from '../store/todos';
 
-class AddTodoForm extends Component {
+class EditTodoForm extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            title: '',
-            description: '',
-            priority: ''
+            ...props.getTodoById(props.match.params.id)
         }
     }
 
     handleSubmit = event => {
         event.preventDefault();
         
-        this.props.addTodo(this.state);
+        this.props.editTodo(this.state);
         this.props.history.push('/todos');
         
     }
@@ -24,7 +23,7 @@ class AddTodoForm extends Component {
     render () {
         return (
             <Container className="form-container">
-                <h2>Add new todo</h2>
+                <h2>Edit todo</h2>
                 <br/>
                 <Form
                     onSubmit = { this.handleSubmit }
@@ -34,6 +33,7 @@ class AddTodoForm extends Component {
                             type="text" 
                             placeholder="Title"
                             onInput={ event => { this.setState({ title: event.target.value })}}
+                            defaultValue={ this.state.title }
                             autoFocus
                         />                      
                     </Form.Group>
@@ -42,11 +42,16 @@ class AddTodoForm extends Component {
                             type="textarea" 
                             placeholder="Description"
                             onInput={ event => { this.setState({ description: event.target.value })}}
+                            defaultValue={ this.state.description }
                         />                      
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Priority: </Form.Label>
-                        <select className="form-control" onChange={ event => { this.setState({ priority: event.target.value })} }>
+                        <select
+                            className="form-control"
+                            onChange={ event => { this.setState({ priority: event.target.value })} }
+                            defaultValue={ this.state.priority }
+                        >
                             <option></option>
                             <option value="Low">Low</option>
                             <option value="Medium">Medium</option>
@@ -57,7 +62,7 @@ class AddTodoForm extends Component {
                         variant="primary"
                         type="submit"
                     >
-                        Add new
+                        Submit
                     </Button>
                 </Form>
             </Container>
@@ -65,10 +70,16 @@ class AddTodoForm extends Component {
     }
 }
 
-function mapDispatchToProps (dispatch) {
+function mapStateToProps (state) {
     return {
-        addTodo: (newTodo) => dispatch(addTodo(newTodo))
+        getTodoById: todoByIdSelector(state)
     }
 }
 
-export default connect(null, mapDispatchToProps)(AddTodoForm);
+function mapDispatchToProps (dispatch) {
+    return {
+        editTodo: (editedTodo) => dispatch(editTodo(editedTodo))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditTodoForm);

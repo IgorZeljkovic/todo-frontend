@@ -24,5 +24,13 @@ async function addTodo (todo) {
     }
 }
 
-const todosService = { getTodos, deleteTodo, addTodo };
+async function editTodo (todo) {
+    try {    
+        return await axios.put(`todos/${todo.id}`, todo)
+    } catch (e) {
+
+    }
+}
+
+const todosService = { getTodos, deleteTodo, addTodo, editTodo };
 export default todosService;
